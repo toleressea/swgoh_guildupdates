@@ -83,19 +83,26 @@ console.log("I am ready!");
 
 client.on("ready", () => {});
 
+var msg = '';
 client.on("message", (message) => {
   if (message.content.startsWith("!setID")) {
     id = message.content.split(' ').pop();
-    console.log(id);
+    msg = 'guild ID set to ' + id;
+    console.log(msg);
+    message.channel.send(msg);
   }
   
   // TODO - This should be automatically run once every 24 hours
   if (message.content.startsWith("!update")) {
     getData(id);
+    msg = "updated with guild ID " + id;
+    console.log(msg);
+    message.channel.send(msg);
   }
   
   // for debug/testing (won't be seen on discord)
   if (message.content.startsWith("!data")) {
+    message.channel.send("sending data to console...");
     console.log(JSON.stringify(newData));
   }
   
@@ -103,12 +110,13 @@ client.on("message", (message) => {
   //        with enough of a delay such that the async request
   //        has time to complete
   if (message.content.startsWith("!diff")) {
+    message.channel.send('Comparing to old...');
     var changes = diff(oldData, newData)
     for (var i = 0; i < changes.length; i++) {
       message.channel.send(changes[i]);
     }
+    oldData = newData;
   }
 });
 
 client.login(auth.token);
-getData(id);
