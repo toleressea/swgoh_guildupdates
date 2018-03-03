@@ -1,0 +1,11 @@
+{
+  "name": "SWGOH_GuildUpdates",
+  "version": "1.0.0",
+  "description": "A bot for updating the guild via discord with toon upgrades!",
+  "main": "bot.js",
+  "author": "toleressea",
+  "dependencies": {
+    "discord.js": "^11.3.0",
+    "request": "^2.83.0"
+  }
+}
